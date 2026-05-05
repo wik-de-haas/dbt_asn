@@ -1,0 +1,14 @@
+version: "1"
+context:
+  active-host: "kb015.us1.dbt.com"
+  active-project: "70471823581463"
+projects:
+  - project-name: "dbt asn demo"
+    project-id: "70471823581463"
+    account-name: "Valcon"
+    account-id: "70471823557354"
+    account-host: "kb015.us1.dbt.com"
+    token-name: "cloud-cli-c0ec"
+    token-value: "dbtu_a6JznL8v54Z5kskFRL0IHpGyiyv3AGPoSVXTkGsx6u7nMGOM_M"
+
+

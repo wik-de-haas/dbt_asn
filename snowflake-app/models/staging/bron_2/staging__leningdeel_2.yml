@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: staging__leningdeel_2
+    description: Standardized loan part agreement records from source bron_2.
+    columns:
+      - name: loan_agreement_id
+        description: Identifier of the parent loan agreement.
+        tests:
+          - not_null
+      - name: loan_part_agreement_id
+        description: Primary key for the staged loan part agreement record.
+        tests:
+          - not_null
+          - unique
+      - name: loan_number
+        description: Source loan number.
+        tests:
+          - not_null
+      - name: loan_part_number
+        description: Source loan part number.
+        tests:
+          - not_null
+      - name: start_dt
+        description: Business validity start date.
+      - name: end_dt
+        description: Business validity end date.
+      - name: product_id
+        description: Product identifier of the loan part agreement.
+      - name: outstanding_nominal_amt
+        description: Current outstanding nominal amount.
+        tests:
+          - not_null
+      - name: original_loan_amt
+        description: Original principal amount of the loan part agreement.
+        tests:
+          - not_null
+      - name: technical_start_dt
+        description: Technical validity start timestamp.
+      - name: technical_end_dt
+        description: Technical validity end timestamp.

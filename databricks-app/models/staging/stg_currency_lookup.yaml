@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_currency_lookup
+    description: "Staging model for currency lookup data"
+    columns:
+      - name: currency_code
+        description: "Currency code"
+        tests:
+          - not_null
+      - name: currency_name
+        description: "Currency name"
+        tests:
+          - not_null
+      - name: currency_symbol
+        description: "Currency symbol"
+        tests:
+          - not_null
+      - name: region
+        description: "Currency region"
+        tests:
+          - not_null

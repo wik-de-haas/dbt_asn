@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: mart__loan_to_value
+    description: Loan-to-value metrics per loan part agreement.
+    columns:
+      - name: loan_part_agreement_id
+        description: Primary key for the mart record.
+        # tests:
+        #   - not_null
+        #   - unique
+      - name: outstanding_nominal_amt
+        description: Outstanding nominal amount of the loan part agreement.
+        # tests:
+        #   - not_null
+      - name: loan_agreement_id
+        description: Identifier of the parent loan agreement.
+        # tests:
+        #   - not_null
+      - name: total_outstanding_loan_amt
+        description: Total outstanding loan amount aggregated at loan agreement level.
+      - name: total_market_value
+        description: Total market value aggregated at loan agreement level.
+      - name: collateral_value_amt
+        description: Allocated collateral value for the loan part agreement.
+      - name: loan_to_value_rate
+        description: Ratio between total outstanding loan amount and total market value.

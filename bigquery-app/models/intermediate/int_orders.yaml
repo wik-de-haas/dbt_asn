@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: int_orders
+    description: "Intermediate model for orders. This model enriches the data by formatting currency, categorizing statuses, and extracting date parts using custom macros."
+    columns:
+      - name: order_id
+        description: "The unique identifier for each order."
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        description: "The ID of the customer who placed the order."
+        tests:
+          - not_null
+
+      - name: order_date
+        description: "The date the order was placed."
+
+      - name: ordered_at
+        description: "The timestamp when the order was placed."
+
+      - name: status
+        description: "The original status of the order."
+
+      - name: amount_usd
+        description: "The total amount of the order in US dollars, rounded to two decimal places."
+
+      - name: is_completed
+        description: "A boolean flag that is TRUE if the order status is 'completed'."
+
+      - name: status_category
+        description: "A user-friendly category for the order status (e.g., 'Completed', 'In Progress')."
+
+      - name: order_year
+        description: "The year the order was placed."

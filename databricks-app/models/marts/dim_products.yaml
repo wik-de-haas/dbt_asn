@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "Product dimension with catalog attributes and derived margin fields for sales and financial analysis"
+    columns:
+      - name: product_key
+        description: "Primary key identifying the product"
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "Product name"
+        tests:
+          - not_null
+      - name: brand
+        description: "Product brand"
+      - name: color
+        description: "Product color"
+      - name: unit_cost_usd
+        description: "Unit cost in USD"
+      - name: unit_price_usd
+        description: "Unit list price in USD"
+      - name: unit_margin_usd
+        description: "Unit margin in USD (unit_price_usd - unit_cost_usd)"
+      - name: unit_margin_pct
+        description: "Unit margin percentage relative to cost"
+      - name: subcategory_key
+        description: "Subcategory key"
+      - name: subcategory
+        description: "Product subcategory name"
+      - name: category_key
+        description: "Category key"
+      - name: category
+        description: "Product category name"

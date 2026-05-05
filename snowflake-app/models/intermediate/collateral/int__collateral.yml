@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: int__collateral
+    description: Unified collateral records from both staging sources.
+    columns:
+      - name: collateral_id
+        description: Primary key for the collateral record.
+        tests:
+          - not_null
+          - unique
+      - name: loan_agreement_id
+        description: Identifier of the related loan agreement.
+        tests:
+          - not_null
+      - name: loan_number
+        description: Source loan number.
+      - name: valuation_dt
+        description: Date of the collateral valuation.
+      - name: start_dt
+        description: Business validity start date.
+      - name: end_dt
+        description: Business validity end date.
+      - name: market_value
+        description: Reported market value of the collateral.
+        tests:
+          - not_null
+      - name: city
+        description: City of the collateral address.
+      - name: postal_code
+        description: Postal code of the collateral address.
+      - name: zz_street
+        description: Street of the collateral address.
+      - name: house_number
+        description: House number of the collateral address.
+      - name: country
+        description: Country of the collateral address.
+      - name: bag_id
+        description: Source BAG identifier.
+        tests:
+          - not_null
+      - name: technical_start_dt
+        description: Technical validity start timestamp.
+      - name: technical_end_dt
+        description: Technical validity end timestamp.

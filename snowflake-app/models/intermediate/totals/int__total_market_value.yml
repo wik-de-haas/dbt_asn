@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: int__total_market_value
+    description: Total collateral market value per loan agreement.
+    columns:
+      - name: loan_agreement_id
+        description: Primary key for the aggregated loan agreement record.
+        tests:
+          - not_null
+          - unique
+      - name: total_market_value
+        description: Sum of collateral market value per loan agreement.
+        tests:
+          - not_null

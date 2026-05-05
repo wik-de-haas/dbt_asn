@@ -1,0 +1,34 @@
+# This is the configuration file for SQLFluff.
+# It defines the rules for linting and formatting our SQL code.
+
+[sqlfluff]
+# The dialect of SQL we are using (tsql for Microsoft Fabric/SQL Server)
+dialect = tsql
+
+# The templater to use (dbt is essential for dbt projects)
+templater = dbt
+
+# The paths to lint (we want to lint our models, seeds, tests, and analyses)
+sql_file_exts = .sql
+
+# Exclude the dbt build artifacts from linting
+exclude_paths = target, dbt_packages
+
+[sqlfluff:rules]
+exclude_rules = L003,L010,L011,L014,L030,L044
+# Rule categories to enable. 'core' is the recommended base.
+# L003: Indentation should be consistent (4 spaces).
+# L010: Keywords should be capitalized.
+# L011: Select targets should be on a new line.
+# L014: Unquoted identifiers should be capitalized.
+# L030: Function names should be capitalized.
+# L044: Select clauses should have a trailing comma.
+
+[sqlfluff:indentation]
+indent_unit = space
+indent_size = 4
+tab_space_size = 4
+
+[sqlfluff:templater:dbt]
+project_dir = .
+fail_on_db_error = false ##REMOVE IF YOU CONNECT TO DATABASE!

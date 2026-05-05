@@ -1,0 +1,51 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'databricks_app'
+version: '1.0.0'
+config-version: 2
+# This setting configures which "profile" dbt uses for this project.
+profile: 'databricks_app'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Install packages to shared location
+packages-install-path: "../common/dbt_packages"
+
+target-path: "target"
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "../common/dbt_packages"
+seeds:
+  +schema: seeds
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the models/
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+models:
+  databricks_app:
+    # Optional: enable dbt-osmosis to manage YAML files for models in this project.
+    # Uncomment the next line and run `dbt-osmosis yaml refactor` to generate/update {model}.yml files.
+    # +dbt-osmosis: "{model}.yml"
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: ephemeral
+    marts:
+      +materialized: table
+      +schema: marts
+  dbt_project_evaluator:
+    +enabled: false

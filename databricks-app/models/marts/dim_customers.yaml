@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension with demographic attributes and derived age fields for customer analytics"
+    columns:
+      - name: customer_key
+        description: "Primary key identifying the customer"
+        tests:
+          - unique
+          - not_null
+      - name: gender
+        description: "Customer gender"
+      - name: first_name
+        description: "Customer first name"
+      - name: last_name
+        description: "Customer last name"
+      - name: city
+        description: "Customer city"
+      - name: state_code
+        description: "Customer state abbreviation"
+      - name: customer_state
+        description: "Customer state full name"
+      - name: zip_code
+        description: "Customer zip/postal code"
+      - name: country
+        description: "Customer country"
+      - name: continent
+        description: "Customer continent"
+      - name: birthday
+        description: "Customer date of birth"
+      - name: birth_year
+        description: "Year of birth derived from birthday"
+      - name: birth_month
+        description: "Month of birth derived from birthday (1-12)"
+      - name: age_years
+        description: "Customer age in years as of current date"
+      - name: age_band
+        description: "Customer age band for segmentation (18-24, 25-34, 35-44, 45-54, 55-64, 65+)"

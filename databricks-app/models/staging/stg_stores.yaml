@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_stores
+    description: "Staging model for store location data"
+    columns:
+      - name: store_key
+        description: "Primary key for store"
+        tests:
+          - unique
+          - not_null
+      - name: country
+        description: "Store country"
+        tests:
+          - not_null
+      - name: store_state
+        description: "Store state"
+      - name: square_meters
+        description: "Store size in square meters"
+      - name: open_date
+        description: "Store opening date"

@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staging model for customer data with cleaned and standardized columns"
+    columns:
+      - name: customer_key
+        description: "Primary key for customer"
+        tests:
+          - unique
+          - not_null
+      - name: gender
+        description: "Customer gender"
+      - name: first_name
+        description: "Customer first name"
+        tests:
+          - not_null
+      - name: last_name
+        description: "Customer last name"
+        tests:
+          - not_null
+      - name: city
+        description: "Customer city"
+      - name: state_code
+        description: "Customer state abbreviation"
+      - name: customer_state
+        description: "Customer state full name"
+      - name: zip_code
+        description: "Customer zip code"
+      - name: country
+        description: "Customer country"
+      - name: continent
+        description: "Customer continent"
+      - name: birthday
+        description: "Customer date of birth"

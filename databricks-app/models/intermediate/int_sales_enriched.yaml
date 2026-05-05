@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: int_sales_enriched
+    description: "Enriched sales line items with keys, FX rate, and margin metrics"
+    columns:
+      - name: order_number
+        description: "Order identifier"
+      - name: line_item
+        description: "Line item number within order"
+      - name: order_date
+        description: "Date the order was placed"
+      - name: delivery_date
+        description: "Date the order was delivered (null if not yet delivered)"
+      - name: order_month
+        description: "Month of the order date (1-12)"
+      - name: order_year
+        description: "Year of the order date"
+      - name: customer_key
+        description: "Customer key from stg_sales"
+      - name: store_key
+        description: "Store key from stg_sales (may be null for unknown stores)"
+      - name: product_key
+        description: "Product key from stg_sales"
+      - name: currency_code
+        description: "Transaction currency code"
+      - name: exchange_rate
+        description: "Daily exchange rate compared to USD"
+      - name: quantity
+        description: "Number of items purchased"
+      - name: cost_usd
+        description: "Total cost in USD"
+      - name: revenue_usd
+        description: "Total revenue in USD"
+      - name: margin_usd
+        description: "Margin in USD (revenue_usd - cost_usd)"
+      - name: margin_pct
+        description: "Margin percentage relative to cost"
+      - name: is_delivered
+        description: "Flag indicating whether the order line has a delivery date"
+        tests:
+          - accepted_values:
+              arguments:
+                values: [true, false]

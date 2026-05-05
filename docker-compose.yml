@@ -1,0 +1,38 @@
+services:
+  ubuntu-wsl:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ubuntu
+    container_name: dbt-test-ubuntu
+    volumes:
+      - .:/home/testuser/dbt
+      - ./bigquery-app/secrets/gcp-sa.json:/secrets/gcp-sa.json:ro
+    environment:
+      - DBT_METHOD=service-account
+      - GOOGLE_APPLICATION_CREDENTIALS=/secrets/gcp-sa.json
+      - DATABRICKS_HOST="$DATABRICKS_HOST"
+      - DATABRICKS_HTTP_PATH="$DATABRICKS_HTTP_PATH"
+      - DATABRICKS_TOKEN="$DATABRICKS_TOKEN"
+    working_dir: /home/testuser/dbt
+    tty: true
+    stdin_open: true
+    restart: "no"
+
+  linux:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.linux
+    container_name: dbt-test-linux
+    volumes:
+      - .:/home/testuser/dbt
+      - ./bigquery-app/secrets/gcp-sa.json:/secrets/gcp-sa.json:ro
+    environment:
+      - DBT_METHOD=service-account
+      - GOOGLE_APPLICATION_CREDENTIALS=/secrets/gcp-sa.json
+      - DATABRICKS_HOST="$DATABRICKS_HOST"
+      - DATABRICKS_HTTP_PATH="$DATABRICKS_HTTP_PATH"
+      - DATABRICKS_TOKEN="$DATABRICKS_TOKEN"
+    working_dir: /home/testuser/dbt
+    tty: true
+    stdin_open: true
+    restart: "no"

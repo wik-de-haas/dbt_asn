@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: staging__party_2
+    description: Standardized party records from source bron_2.
+    columns:
+      - name: party_id
+        description: Primary key for the staged party record.
+        tests:
+          - not_null
+          - unique
+      - name: name
+        description: Name of the party.
+        tests:
+          - not_null
+      - name: start_dt
+        description: Business validity start date.
+      - name: end_dt
+        description: Business validity end date.
+      - name: birth_dt
+        description: Birth date of the party.
+      - name: client_number
+        description: Source client number.
+        tests:
+          - not_null
+      - name: technical_start_dt
+        description: Technical validity start timestamp.
+      - name: technical_end_dt
+        description: Technical validity end timestamp.

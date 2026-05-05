@@ -1,0 +1,45 @@
+# Ignore virtual environments
+**/.venv/
+**/venv/
+**/env/
+fabric-app/.venv/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore Docker files from being copied into containers
+Dockerfile.ubuntu
+Dockerfile.linux
+Dockerfile.macos
+docker-compose*.yml
+.dockerignore
+
+# Ignore test results
+test_results.txt
+
+# Ignore temporary directories
+tmp/
+temp/

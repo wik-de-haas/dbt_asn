@@ -1,0 +1,71 @@
+trigger: none
+
+parameters:
+  - name: ACTION
+    type: string
+    values:
+    - "plan only"
+    - "plan and apply"
+    - "plan and destroy"
+    - "plan, apply and destroy"
+    default: "plan and apply"
+  - name: ENVIRONMENT
+    type: string
+    values:
+      - dev
+      - tst
+      - acc
+      - prd
+    default: dev
+  - name: LOCATION
+    type: string
+    values:
+      - westeurope
+      - northeurope
+    default: westeurope
+  - name: USER
+    type: string
+    default: " "
+    displayName: "User for Manual Validation (leave as space to skip approval)"
+  - name: TFSTATENAME
+    type: string
+    displayName: "The name for the tfstate. Change this value when testing."
+    default: "dbt-fabric-training"
+  - name: ADMINISTRATION_MEMBERS
+    type: string
+    displayName: "Administration members (comma-separated emails)"
+    default: "example@valcon.com"
+  - name: TRAINER_EMAILS
+    type: string
+    displayName: "Trainer emails (comma-separated)"
+    default: "tim.bosker@valcon.com"
+  - name: PARTICIPANT_EMAILS
+    type: string
+    displayName: "Participant emails (comma-separated)"
+    default: "first.lastname@valcon.com, first.lastname2@valcon.com"
+
+
+
+resources:
+  repositories:
+  - repository: pipeline-templates-iac
+    type: git
+    name: Infrastructure-as-code-iac/pipeline-templates-iac
+    ref: main
+
+extends:
+  template: .pipeline-templates/deploy-terraform.yaml@pipeline-templates-iac
+  parameters:
+    CLOUD_PROVIDER: azure
+    PROJECT_NAME: dbt-fabric-training
+    TFSOURCEPATH: infra/fabric-training
+    TFSTATENAME: ${{ parameters.TFSTATENAME }}
+    ENVIRONMENT: ${{ parameters.ENVIRONMENT }}
+    LOCATION: ${{ parameters.LOCATION }}
+    ACTION: ${{ parameters.ACTION }}
+    TFVARFILE: terraform.tfvars
+    USER: ${{ parameters.USER }}
+    CUSTOM_TF_VARS:
+      administration_members: ${{ parameters.ADMINISTRATION_MEMBERS }}
+      trainer_emails: ${{ parameters.TRAINER_EMAILS }}
+      participant_emails: ${{ parameters.PARTICIPANT_EMAILS }}

@@ -1,0 +1,44 @@
+# dbt Snowflake Profile
+snowflake_app:
+  target: dev
+  outputs:
+
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"   # Only the identifier — no https:// and no .snowflakecomputing.com
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      authenticator: username_password_mfa
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'ACCOUNTADMIN') }}"                  # Strongly recommended
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'DBT_ASN') }}" # Supposed to be change it back later
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'COMPUTE_WH') }}"
+      schema: "{{ env_var('DBT_LOCAL_SCHEMA_PREFIX', 'local_dev') }}_{{ env_var('USER') }}"
+      threads: 4
+      client_session_keep_alive: false                                         # Set true for long-running models
+
+    acc:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT', 'orgname-accountname') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'your_user') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD', 'your_password') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'transformer') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE_ACC', 'acc') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'transforming') }}"
+      schema: "{{ env_var('DBT_LOCAL_SCHEMA_PREFIX', 'local_dev') }}_{{ env_var('USER') }}"
+      threads: 4
+      client_session_keep_alive: false
+
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT', 'orgname-accountname') }}"
+      user: "{{ env_var('SNOWFLAKE_USER', 'your_user') }}"
+      private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PATH') }}"         # Path to .p8 private key file
+      private_key_passphrase: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PASSPHRASE', '') }}"  # Leave empty if key is not encrypted
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'transformer') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE_PROD', 'prod') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'transforming') }}"
+      schema: "{{ env_var('DBT_LOCAL_SCHEMA_PREFIX', 'local_dev') }}_{{ env_var('USER') }}"
+      threads: 4
+      client_session_keep_alive: false
+
+

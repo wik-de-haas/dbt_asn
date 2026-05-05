@@ -1,0 +1,38 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+**/.venv
+
+#dbt
+**/target/
+**/dbt_state/
+**/dbt_packages/
+**/logs/
+**/manifest.json
+**/catalog.json
+**/run_results.json
+**/sources.json
+**/partial_parse.pkl
+**/package-lock.yml
+
+#user files
+*/.usr.yml
+*/.user.yml
+
+#environment variables
+.env
+**/.env
+
+#secrets
+secrets
+
+#dbt power user
+.vscode
+**/.vscode

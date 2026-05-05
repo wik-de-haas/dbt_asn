@@ -1,0 +1,31 @@
+#!/bin/bash
+# Simple venv activation script
+# Usage: source venv <project-name>
+
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/common/scripts/utils.sh"
+
+PROJECT_NAME="$1"
+
+if [ -z "$PROJECT_NAME" ]; then
+    echo "Usage: source venv <project-name>"
+    return 1 2>/dev/null || exit 1
+fi
+
+# Navigate to project directory - always cd into the project
+if [ -d "$PROJECT_NAME" ]; then
+    cd "$PROJECT_NAME"
+    echo "✓ Changed to directory: $PROJECT_NAME"
+elif [ ! -f "dbt_project.yml" ]; then
+    echo "Project directory '$PROJECT_NAME' not found and no dbt_project.yml in current directory"
+    return 1 2>/dev/null || exit 1
+fi
+
+# Detect OS and activate virtual environment
+OS_TYPE=$(detect_os)
+
+if ! activate_venv "$PROJECT_NAME" "$OS_TYPE"; then
+    echo "Run: bash deployment/local_setup/setup.sh"
+    return 1 2>/dev/null || exit 1
+fi

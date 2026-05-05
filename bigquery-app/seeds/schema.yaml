@@ -1,0 +1,42 @@
+version: 2
+
+seeds:
+  - name: orders
+    description: "Orders seed data for development and testing"
+    config:
+      quote_columns: false
+      delimiter: ","
+      column_types:
+        order_id: int64
+        customer_id: int64
+        order_date: date
+        ordered_at: datetime
+        status: string
+        amount_usd: numeric
+    columns:
+      - name: order_id
+        description: "The unique identifier for each order"
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "The unique identifier for each customer"
+        data_tests:
+          - not_null
+      - name: order_date
+        description: "The date of the order"
+        data_tests:
+          - not_null
+      - name: ordered_at
+        description: "The timestamp when the order was placed"
+        data_tests:
+          - not_null
+      - name: status
+        description: "The status of the order (completed/returned/shipped)"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['completed', 'shipped', 'returned']
+          - not_null
+      - name: amount_usd
+        description: "The total amount of the order in USD"

@@ -1,0 +1,88 @@
+# This file configures the pre-commit hooks that run before each commit.
+# See https://pre-commit.com for more information.
+
+repos:
+  # Standard hooks for basic file cleaning
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+        name: Check YAML files
+      - id: check-json
+        name: Check JSON files
+      - id: check-toml
+        name: Check TOML files
+      - id: end-of-file-fixer
+        name: Fix end of files
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+      - id: check-added-large-files
+        name: Check for large files
+        args: ['--maxkb=500']
+      - id: mixed-line-ending
+        name: Fix mixed line endings
+        args: ['--fix=lf']
+      - id: check-case-conflict
+        name: Check for case conflicts
+
+  # Unable to run in windows due to security settings
+  - repo: local
+    hooks:
+      - id: sqlfmt
+        name: sqlfmt
+        entry: sqlfmt
+        language: system
+        files: models/.*\.sql$
+        pass_filenames: true
+
+  # sqlfluff hooks for comprehensive model quality. Need a running dbt project.
+  # - repo: local
+  #   hooks:
+  #     - id: sqlfluff-lint
+  #       name: SQLFluff lint
+  #       entry: sqlfluff lint
+  #       language: system
+  #       files: \.(sql|SQL)$
+  #       pass_filenames: true
+  #     - id: sqlfluff-fix
+  #       name: SQLFluff format
+  #       entry: sqlfluff fix
+  #       language: system
+  #       files: \.(sql|SQL)$
+  #       pass_filenames: true
+
+  # dbt-checkpoint hooks for comprehensive model quality. Need a running dbt project.
+  # - repo: https://github.com/dbt-checkpoint/dbt-checkpoint
+  #   rev: v1.2.1
+  #   hooks:
+  #     # Model documentation checks
+  #     - id: check-model-has-description
+  #       name: Check model has description
+  #       files: models/.*\.sql$
+  #     - id: check-column-desc-are-same
+  #       name: Check column descriptions consistency
+  #       files: models/.*\.sql$
+
+  #     # Model testing and quality checks
+  #     - id: check-model-has-tests
+  #       name: Check model has tests
+  #       files: models/.*\.sql$
+  #     - id: check-model-name-contract
+  #       name: Check model naming convention
+  #       files: models/.*\.sql$
+  #       args: ['--pattern', '^(stg|int|fct|dim)_[a-z0-9_]+\.sql$']
+
+  #     # SQL best practices
+  #     - id: check-script-has-no-table-name
+  #       name: Check no hardcoded table names
+  #       files: models/.*\.sql$
+  #     - id: check-macro-has-description
+  #       name: Check macro has description
+  #       files: macros/.*\.sql$
+
+  #     # Schema file checks
+  #     - id: check-model-columns-have-desc
+  #       name: Check model columns have descriptions
+  #       files: models/.*/schema\.ya?ml$

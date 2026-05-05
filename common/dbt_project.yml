@@ -1,0 +1,30 @@
+name: 'common_package'
+version: '1.0.0'
+config-version: 2
+
+# This is a shared package containing common utilities
+profile: 'common_package'
+
+# Minimal paths - this package mainly provides shared dependencies
+model-paths: ["models"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# This package is meant to be used by other dbt projects
+require-dbt-version: ">=1.0.0"
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "../common/dbt_packages"
+
+dispatch:
+  - macro_namespace: dbt
+    search_order: ['dbt_project_evaluator', 'dbt']
+
+models:
+  project:
+    +meta:
+      required_docs: true
+    marts:
+      +meta:
+        required_tests: {"unique.*|not_null": 1}

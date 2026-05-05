@@ -1,0 +1,159 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: "{{ target.database }}"
+    schema: source
+    description: "Raw source tables from business systems"
+    tables:
+
+      # Raw customer data
+      - name: customers
+        description: "Customer master data from CRM system"
+        columns:
+          - name: CustomerKey
+            description: "Primary key to identify customers"
+            tests:
+              - unique
+              - not_null
+          - name: Gender
+            description: "Customer gender"
+          - name: Name
+            description: "Customer full name"
+            tests:
+              - not_null
+          - name: City
+            description: "Customer city"
+          - name: State Code
+            quote: true
+            description: "Customer state (abbreviated)"
+          - name: State
+            description: "Customer state (full)"
+          - name: Zip Code
+            quote: true
+            description: "Customer zip code"
+          - name: Country
+            description: "Customer country"
+          - name: Continent
+            description: "Customer continent"
+          - name: Birthday
+            description: "Customer date of birth"
+
+      # Raw product data
+      - name: products
+        description: "Product catalog from inventory system"
+        columns:
+          - name: ProductKey
+            description: "Primary key to identify products"
+            tests:
+              - unique
+              - not_null
+          - name: Product Name
+            quote: true
+            description: "Product name"
+            tests:
+              - not_null
+          - name: Brand
+            description: "Product brand"
+          - name: Color
+            description: "Product color"
+          - name: Unit Cost USD
+            quote: true
+            description: "Cost to produce the product in USD"
+          - name: Unit Price USD
+            quote: true
+            description: "Product list price in USD"
+          - name: SubcategoryKey
+            description: "Key to identify product subcategories"
+          - name: Subcategory
+            description: "Product subcategory name"
+          - name: CategoryKey
+            description: "Key to identify product categories"
+          - name: Category
+            description: "Product category name"
+
+      # Raw store data
+      - name: stores
+        description: "Store locations from retail system"
+        columns:
+          - name: StoreKey
+            description: "Primary key to identify stores"
+            tests:
+              - unique
+              - not_null
+          - name: Country
+            description: "Store country"
+            tests:
+              - not_null
+          - name: State
+            description: "Store state"
+          - name: Square Meters
+            quote: true
+            description: "Store footprint in square meters"
+          - name: Open Date
+            quote: true
+            description: "Store open date"
+
+      # Raw sales transactions
+      - name: sales
+        description: "Sales transaction data from POS system"
+        columns:
+          - name: Order Number
+            quote: true
+            description: "Unique ID for each order"
+            tests:
+              - not_null
+          - name: Line Item
+            quote: true
+            description: "Identifies individual products purchased as part of an order"
+            tests:
+              - not_null
+          - name: Order Date
+            quote: true
+            description: "Date the order was placed"
+            tests:
+              - not_null
+          - name: Delivery Date
+            quote: true
+            description: "Date the order was delivered"
+          - name: CustomerKey
+            description: "Unique key identifying which customer placed the order"
+            tests:
+              - not_null
+          - name: StoreKey
+            description: "Unique key identifying which store processed the order"
+            tests:
+              - not_null
+          - name: ProductKey
+            description: "Unique key identifying which product was purchased"
+            tests:
+              - not_null
+          - name: Quantity
+            description: "Number of items purchased"
+            tests:
+              - not_null
+          - name: Currency Code
+            quote: true
+            description: "Currency used to process the order"
+            tests:
+              - accepted_values:
+                  arguments:
+                    values: ['USD', 'CAD', 'EUR', 'GBP', 'AUD']
+                  severity: warn
+
+      # Exchange rates for currency conversion
+      - name: exchange_rates
+        description: "Daily exchange rates for currency conversion"
+        columns:
+          - name: Date
+            description: "Date"
+            tests:
+              - not_null
+          - name: Currency
+            description: "Currency code"
+            tests:
+              - not_null
+          - name: Exchange
+            description: "Exchange rate compared to USD"
+            tests:
+              - not_null

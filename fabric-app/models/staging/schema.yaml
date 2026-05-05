@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Staging model for orders."
+    columns:
+      - name: order_id
+        description: "The unique identifier for each order."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "The ID of the customer who placed the order."
+        tests:
+          - not_null
+      - name: order_date
+        description: "The date the order was placed."
+        tests:
+          - not_null
+      - name: ordered_at
+        description: "The timestamp when the order was placed."
+        tests:
+          - not_null
+      - name: status
+        description: "The current status of the order."
+        tests:
+          - accepted_values:
+              values: ['completed', 'shipped', 'returned']
+      - name: amount_usd
+        description: "The total amount of the order in US dollars."
+        tests:
+          - not_null
+      - name: numerator
+        description: "The numerator for a sample calculation."
+      - name: denominator
+        description: "The denominator for a sample calculation."

@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: stg_sales
+    description: "Staging model for sales transaction data"
+    columns:
+      - name: order_number
+        description: "Unique order identifier"
+        tests:
+          - not_null
+      - name: line_item
+        description: "Line item number within order"
+        tests:
+          - not_null
+      - name: order_date
+        description: "Date order was placed"
+        tests:
+          - not_null
+      - name: delivery_date
+        description: "Date order was delivered"
+      - name: customer_key
+        description: "Foreign key to customer"
+        tests:
+          - not_null
+      - name: store_key
+        description: "Foreign key to store"
+      - name: product_key
+        description: "Foreign key to product"
+        tests:
+          - not_null
+      - name: quantity
+        description: "Number of items purchased"
+        tests:
+          - not_null
+      - name: currency_code
+        description: "Currency used for transaction"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['USD', 'CAD', 'EUR', 'GBP', 'AUD']
+              severity: warn

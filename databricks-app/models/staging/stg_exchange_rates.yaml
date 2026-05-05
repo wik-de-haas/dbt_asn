@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_exchange_rates
+    description: "Staging model for currency exchange rates"
+    columns:
+      - name: date
+        description: "Date of exchange rate"
+        tests:
+          - not_null
+      - name: currency_code
+        description: "Currency code"
+        tests:
+          - not_null
+      - name: exchange_rate
+        description: "Exchange rate to USD"
+        tests:
+          - not_null

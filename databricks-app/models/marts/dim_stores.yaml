@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: dim_stores
+    description: "Store dimension with location attributes, region classification, and channel type for sales and inventory analysis"
+    columns:
+      - name: store_key
+        description: "Primary key identifying the store"
+        tests:
+          - unique
+          - not_null
+      - name: country
+        description: "Store country"
+      - name: store_state
+        description: "Store state/province"
+      - name: square_meters
+        description: "Store footprint in square meters"
+      - name: open_date
+        description: "Date the store opened"
+      - name: region
+        description: "Geographic region (North America, Europe, APAC, Digital, Other)"
+      - name: channel
+        description: "Sales channel (Physical or Online)"

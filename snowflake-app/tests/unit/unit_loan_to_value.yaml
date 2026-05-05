@@ -1,0 +1,109 @@
+version: 2
+
+unit_tests:
+  - name: collateral_value_basic_case
+    model: mart__loan_to_value
+    given:
+      - input: ref('int__loan_part_agreement')
+        rows:
+          - {
+              loan_part_agreement_id: 'B1|HOOFDSOM|LN1001|1',
+              loan_agreement_id: 'B1|LOAN|LN1001',
+              outstanding_nominal_amt: 200
+            }
+
+      - input: ref('int__total_outstanding_loan_amt')
+        rows:
+          - {
+              loan_agreement_id: 'B1|LOAN|LN1001',
+              total_outstanding_loan_amt: 1000
+            }
+
+      - input: ref('int__total_market_value')
+        rows:
+          - {
+              loan_agreement_id: 'B1|LOAN|LN1001',
+              total_market_value: 500
+            }
+
+    expect:
+      rows:
+        - {
+            loan_part_agreement_id: 'B1|HOOFDSOM|LN1001|1',
+            outstanding_nominal_amt: 200,
+            loan_agreement_id: 'B1|LOAN|LN1001',
+            total_outstanding_loan_amt: 1000,
+            total_market_value: 500,
+            collateral_value_amt: 100,
+            loan_to_value_rate: 2
+          }
+
+  - name: collateral_value_null_when_market_value_zero
+    model: mart__loan_to_value
+    given:
+      - input: ref('int__loan_part_agreement')
+        rows:
+          - {
+              loan_part_agreement_id: 'B1|HOOFDSOM|LN1002|2',
+              loan_agreement_id: 'B1|LOAN|LN1002',
+              outstanding_nominal_amt: 200
+            }
+
+      - input: ref('int__total_outstanding_loan_amt')
+        rows:
+          - {
+              loan_agreement_id: 'B1|LOAN|LN1002',
+              total_outstanding_loan_amt: 1000
+            }
+
+      - input: ref('int__total_market_value')
+        rows:
+          - {
+              loan_agreement_id: 'B1|LOAN|LN1002',
+              total_market_value: 0
+            }
+
+    expect:
+      rows:
+        - {
+            loan_part_agreement_id: 'B1|HOOFDSOM|LN1002|2',
+            outstanding_nominal_amt: 200,
+            loan_agreement_id: 'B1|LOAN|LN1002',
+            total_outstanding_loan_amt: 1000,
+            total_market_value: 0,
+            collateral_value_amt: null,
+            loan_to_value_rate: null
+          }
+
+  - name: collateral_value_null_when_market_value_missing
+    model: mart__loan_to_value
+    given:
+      - input: ref('int__loan_part_agreement')
+        rows:
+          - {
+              loan_part_agreement_id: 'B1|HOOFDSOM|LN1003|1',
+              loan_agreement_id: 'B1|LOAN|LN1003',
+              outstanding_nominal_amt: 200
+            }
+
+      - input: ref('int__total_outstanding_loan_amt')
+        rows:
+          - {
+              loan_agreement_id: 'B1|LOAN|LN1003',
+              total_outstanding_loan_amt: 1000
+            }
+
+      - input: ref('int__total_market_value')
+        rows: []
+
+    expect:
+      rows:
+        - {
+            loan_part_agreement_id: 'B1|HOOFDSOM|LN1003|1',
+            outstanding_nominal_amt: 200,
+            loan_agreement_id: 'B1|LOAN|LN1003',
+            total_outstanding_loan_amt: 1000,
+            total_market_value: null,
+            collateral_value_amt: null,
+            loan_to_value_rate: null
+          }

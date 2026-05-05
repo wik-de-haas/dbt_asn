@@ -1,0 +1,17 @@
+dbt_community: ## Make sure this matches your dbt_project.yaml settings
+  target: dev
+  outputs:
+    dev:
+      type: fabric
+      driver: "ODBC Driver 18 for SQL Server"
+      server: "{{ env_var('FABRIC_SERVER') }}"
+      port: 1433
+      database: "{{ env_var('FABRIC_DATABASE') }}"
+      schema: "{{ env_var('FABRIC_SCHEMA') }}"
+      threads: 4
+      # Authentication using Service Principal
+      authentication: 'ServicePrincipal' #or 'cli'
+      # For service_principal auth
+      client_id: "{{ env_var('FABRIC_CLIENT_ID') }}"
+      client_secret: "{{ env_var('FABRIC_CLIENT_SECRET') }}"
+      tenant_id: "{{ env_var('FABRIC_TENANT_ID') }}"

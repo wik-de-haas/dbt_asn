@@ -1,0 +1,19 @@
+select
+    order_number,
+    line_item,
+    order_date,
+    delivery_date,
+    order_month,
+    order_year,
+    customer_key,
+    store_key,
+    product_key,
+    currency_code,
+    exchange_rate,
+    quantity,
+    cost_usd,
+    revenue_usd,
+    margin_usd,
+    margin_pct,
+    is_delivered
+from {{ ref("int_sales_enriched") }}

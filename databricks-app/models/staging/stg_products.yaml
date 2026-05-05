@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: "Staging model for product catalog data"
+    columns:
+      - name: product_key
+        description: "Primary key for product"
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "Product name"
+        tests:
+          - not_null
+      - name: brand
+        description: "Product brand"
+      - name: color
+        description: "Product color"
+      - name: unit_cost_usd
+        description: "Product cost in USD"
+      - name: unit_price_usd
+        description: "Product price in USD"
+      - name: subcategory_key
+        description: "Product subcategory identifier"
+      - name: subcategory
+        description: "Product subcategory name"
+      - name: category_key
+        description: "Product category identifier"
+      - name: category
+        description: "Product category name"

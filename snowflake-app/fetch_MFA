@@ -1,0 +1,14 @@
+python3 -c "
+import snowflake.connector, os
+conn = snowflake.connector.connect(
+    account=os.environ['SNOWFLAKE_ACCOUNT'],
+    user=os.environ['SNOWFLAKE_USER'],
+    password=os.environ['SNOWFLAKE_PASSWORD'],
+    authenticator='username_password_mfa',
+    passcode=input('TOTP code: '),
+    client_request_mfa_token=True,
+    client_store_temporary_credential=True,
+)
+print('Cached!')
+conn.close()
+"

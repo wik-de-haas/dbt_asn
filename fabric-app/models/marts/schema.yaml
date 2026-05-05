@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: fct_customer_orders
+    description: "Final marts model that aggregates order data per customer, per year. This provides a summary of customer activity over time."
+    columns:
+      - name: customer_order_yearly_id
+        description: "The unique primary key for this table, generated from the combination of customer_id and order_year."
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        description: "The ID of the customer."
+        tests:
+          - not_null
+
+      - name: order_year
+        description: "The year of the orders being summarized."
+        tests:
+          - not_null
+
+      - name: total_orders
+        description: "The total number of orders placed by the customer in that year."
+
+      - name: total_revenue_usd
+        description: "The total revenue generated from the customer's completed orders in that year."
+
+      - name: first_order_date
+        description: "The date of the first order placed by the customer in that year."
+
+      - name: last_order_date
+        description: "The date of the last order placed by the customer in that year."

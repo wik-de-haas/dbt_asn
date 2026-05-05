@@ -1,0 +1,31 @@
+# seeds.yaml - Configuration for dbt seed files
+# Seeds are CSV files that get loaded into your data warehouse as tables
+# Use seeds for small reference/lookup tables that don't change often
+
+version: 2
+
+seeds:
+  - name: Currency_Lookup
+    description: "Reference table for currency codes and details"
+    config:
+      quote_columns: false
+      delimiter: ","
+      column_types:
+        CurrencyCode: string
+        CurrencyName: string
+        CurrencySymbol: string
+        Region: string
+    columns:
+      - name: CurrencyCode
+        description: "ISO currency code (USD, EUR, etc.)"
+        tests:
+          - unique
+          - not_null
+      - name: CurrencyName
+        description: "Full currency name"
+      - name: CurrencySymbol
+        description: "Currency symbol ($, €, etc.)"
+      - name: Region
+        description: "Geographic region"
+        tests:
+          - not_null

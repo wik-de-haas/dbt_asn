@@ -1,0 +1,5 @@
+# This file references packages defined in the common directory
+# Run `dbt deps` to install these packages.
+
+packages:
+  - local: ../common

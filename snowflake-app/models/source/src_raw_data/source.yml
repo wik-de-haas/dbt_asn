@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: bron_1
+    database: dbt_asn
+    schema: bron_1
+    tables:
+      - name: klant
+      - name: leningdeel
+      - name: onderpand
+
+  - name: bron_2
+    description: Bron 2 leningdelen
+    database: dbt_asn
+    schema: bron_2
+    tables:
+      - name: klant
+        description: Bron 2 klanten
+      - name: leningdeel
+        description: Bron 2 leningdelen
+      - name: onderpand
+        description: Bron 2 onderpanden

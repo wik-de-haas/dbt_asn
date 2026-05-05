@@ -1,0 +1,46 @@
+#oauth based
+bigquery_app:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: "{{ env_var('DBT_METHOD', 'oauth') }}"
+      project: "{{ env_var('BIGQUERY_PROJECT', 'sdp-dev-465909') }}"
+      dataset: "{{ env_var('BIGQUERY_DATASET', 'example') }}"
+      location: "{{ env_var('BIGQUERY_LOCATION', 'europe-west4') }}"
+      threads: 4
+      # #oauth token based include the following
+      # refresh_token: TOKEN
+      # client_id: CLIENT_ID
+      # client_secret: CLIENT_SECRET
+      # token_uri: REDIRECT_URI
+
+    acc:
+      type: bigquery
+      method: "{{ env_var('DBT_METHOD', 'oauth') }}"
+      project: "{{ env_var('BIGQUERY_PROJECT_ACC', 'sdp-acc-465909') }}"
+      dataset: "{{ env_var('BIGQUERY_DATASET_ACC', 'example') }}"
+      location: "{{ env_var('BIGQUERY_LOCATION', 'europe-west4') }}"
+      threads: 4
+
+    prod:
+      type: bigquery
+      method: "{{ env_var('DBT_METHOD', 'oauth') }}"
+      project: "{{ env_var('BIGQUERY_PROJECT_PROD', 'sdp-prod-465909') }}"
+      dataset: "{{ env_var('BIGQUERY_DATASET_PROD', 'example') }}"
+      location: "{{ env_var('BIGQUERY_LOCATION', 'europe-west4') }}"
+      threads: 4
+
+
+# Service account based (for production/CI)
+# bigquery_app:
+#   target: dev
+#   outputs:
+#     dev:
+#       type: bigquery
+#       method: service-account
+#       project: "{{ env_var('BIGQUERY_PROJECT') }}"
+#       dataset: "{{ env_var('BIGQUERY_DATASET') }}"
+#       location: "{{ env_var('BIGQUERY_LOCATION') }}"
+#       threads: 4
+#       keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}"

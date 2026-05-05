@@ -1,0 +1,6 @@
+CurrencyCode,CurrencyName,CurrencySymbol,Region
+USD,US Dollar,$,North America
+CAD,Canadian Dollar,C$,North America
+EUR,Euro,€,Europe
+GBP,British Pound,£,Europe
+AUD,Australian Dollar,A$,Asia Pacific

@@ -1,0 +1,28 @@
+FROM python:3.12-slim
+
+ENV PATH="/root/.cargo/bin:$PATH"
+
+# Install dependencies, create user, install uv, and setup permissions in single layer
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    build-essential \
+    sudo \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd -m -s /bin/bash testuser \
+    && usermod -aG sudo testuser \
+    && echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+    && curl -LsSf https://astral.sh/uv/install.sh | sh \
+    && ln -s /root/.cargo/bin/uv /usr/local/bin/uv
+
+# Create entrypoint and copy project files
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY --chown=testuser:testuser . /home/testuser/dbt
+RUN chmod +x /usr/local/bin/entrypoint.sh \
+    && find /home/testuser/dbt -path "*/deployment/local_setup/setup.sh" -exec chmod +x {} +
+
+USER testuser
+WORKDIR /home/testuser/dbt
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["/bin/bash"]
